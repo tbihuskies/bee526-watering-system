@@ -1,0 +1,10 @@
+{
+    "search.exclude": {
+    "**/node_modules": true,
+    "**/sensor_read.cpp": true
+    },
+    "files.associations": {
+        "string": "cpp",
+        "format": "cpp"
+    }
+}
