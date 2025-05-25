@@ -5,28 +5,31 @@
 #include <ArduinoJson.h>
 #include "write_read_json.h"
 #include "sensor_read.h"
+#include "littlefs_funcs.h"
 #include <iostream>
 #include "FS.h"
 #include <LittleFS.h>
+#include <errno.h>
 
 #define FORMAT_LITTLEFS_IF_FAILED true
 
 using namespace std;
+using namespace LittleFSFuncs;
 
 namespace WaterSoil {
 
-    enum class Month {JANUARY = 1, FEBRURARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER};
+    
+    // void readJSON(string filename){
 
-    void readJSON(std::string filename){
 
+    // }
 
-    }
-    void createFirstJSONFile(std::string filename) {
+    void createFirstJSONFile(string filename) {
          Serial.println("No data file exists; auto-generating:");
-         if(LittleFS.mkdir("/folder1")){ // creates dir if it doesn't exist
-            Serial.println("Dir created");
-         }
-          File file = LittleFS.open(String(filename.c_str()), "w"); // write file
+         createDir(LittleFS, "/folder1");
+         writeFile(LittleFS, "/folder1/plantdata.txt", "");
+         
+         File file = LittleFS.open("/folder1/plantdata.txt");
           // create JSON Document
           JsonDocument jdoc;
           JsonObject jobj = jdoc.to<JsonObject>();

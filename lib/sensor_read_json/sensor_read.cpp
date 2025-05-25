@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include "sensor_read.h"
 
-using namespace WaterSoil; 
+namespace WaterSoil {
 
     void readSensor(int pin) {
         int sensorReading = analogRead(pin);
@@ -12,4 +12,6 @@ using namespace WaterSoil;
         delay(5000);
 
     }
+
+}
 

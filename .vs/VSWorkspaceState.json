@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\lib",
+    "\\lib\\littlefs_funcs",
+    "\\lib\\sensor_read_json",
+    "\\lib\\write_read_json",
+    "\\src"
+  ],
+  "SelectedNode": "\\lib\\write_read_json\\write_read_json.cpp",
+  "PreviewInSolutionExplorer": false
+}

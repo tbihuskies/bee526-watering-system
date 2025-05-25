@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\write_read_json\\write_read_json.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lib\\write_read_json\\write_read_json.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\write_read_json\\write_read_json.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lib\\write_read_json\\write_read_json.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\sensor_read_json\\sensor_read.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lib\\sensor_read_json\\sensor_read.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\sensor_read_json\\sensor_read.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lib\\sensor_read_json\\sensor_read.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "write_read_json.cpp",
+              "DocumentMoniker": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\write_read_json\\write_read_json.cpp",
+              "RelativeDocumentMoniker": "lib\\write_read_json\\write_read_json.cpp",
+              "ToolTip": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\write_read_json\\write_read_json.cpp",
+              "RelativeToolTip": "lib\\write_read_json\\write_read_json.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-25T10:00:18.457Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "write_read_json.h",
+              "DocumentMoniker": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\write_read_json\\write_read_json.h",
+              "RelativeDocumentMoniker": "lib\\write_read_json\\write_read_json.h",
+              "ToolTip": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\write_read_json\\write_read_json.h",
+              "RelativeToolTip": "lib\\write_read_json\\write_read_json.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-25T10:00:17.8Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "sensor_read.cpp",
+              "DocumentMoniker": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\sensor_read_json\\sensor_read.cpp",
+              "RelativeDocumentMoniker": "lib\\sensor_read_json\\sensor_read.cpp",
+              "ToolTip": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\sensor_read_json\\sensor_read.cpp",
+              "RelativeToolTip": "lib\\sensor_read_json\\sensor_read.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-25T10:00:16.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "sensor_read.h",
+              "DocumentMoniker": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\sensor_read_json\\sensor_read.h",
+              "RelativeDocumentMoniker": "lib\\sensor_read_json\\sensor_read.h",
+              "ToolTip": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\lib\\sensor_read_json\\sensor_read.h",
+              "RelativeToolTip": "lib\\sensor_read_json\\sensor_read.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-25T10:00:15.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\src\\main.cpp",
+              "RelativeDocumentMoniker": "src\\main.cpp",
+              "ToolTip": "C:\\Users\\Timothy\\Documents\\PlatformIO\\Projects\\SoilWaterSensors\\src\\main.cpp",
+              "RelativeToolTip": "src\\main.cpp",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-25T09:58:22.766Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

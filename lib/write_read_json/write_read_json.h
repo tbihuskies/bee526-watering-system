@@ -5,14 +5,14 @@
 #define WRITE_READ_JSON_H
 #include <iostream>
 
-using namespace std;
-
 
 namespace WaterSoil
 {
 
-    void readJSON(std::string filename);
-    void createFirstJSONFile(std::string filename);
+    enum class Month {JANUARY = 1, FEBRURARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER};
+
+    void readJSON(String filename);
+    void createFirstJSONFile(String filename);
     // void writeJSON(std::string filename);
     
 }
