@@ -5,12 +5,11 @@
 #include <NTPClient.h>
 #include <WiFi.h>
 #include <WiFiUdp.h>
+#include <ESP32WifiNtp.h>
 
-#define UTC_OFFSET_IN_SECONDS 3600         // offset from greenwich time
+#define UTC_OFFSET_IN_SECONDS -28800         // offset from GMT; here defined for US Pacific Std Time
 
 // SSID and password of Wifi connection:
-const char* ssid = "TYPE_YOUR_SSID_HERE";
-const char* password = "TYPE_YOUR_PASSWORD_HERE";
 
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
@@ -18,11 +17,8 @@ char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursd
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", UTC_OFFSET_IN_SECONDS);
 
-void setup(){
-  Serial.begin(19200);
-
-  WiFi.begin(ssid, password);
-
+void ntpSetup(){
+  
   while ( WiFi.status() != WL_CONNECTED ) {
     delay ( 500 );
     Serial.print ( "." );
@@ -37,24 +33,6 @@ void setup(){
   timeClient.update();
 }
 
-void loop() {
-
-  // Option1: Get time and day of the week directly (discussed in Youtube video)
-  Serial.print("Option 1: ");
-  Serial.print(daysOfTheWeek[timeClient.getDay()]);
-  Serial.print(", ");
-  Serial.print(timeClient.getHours());
-  Serial.print(":");
-  Serial.print(timeClient.getMinutes());
-  Serial.print(":");
-  Serial.println(timeClient.getSeconds());
-
-  // Option 2: abstract from formatted date (added later as per request)
-  Serial.print("Option 2: ");
-  Serial.println(getTimeStampString());
-  
-  delay(1000);
-}
 
 String getTimeStampString() {
    time_t rawtime = timeClient.getEpochTime();
@@ -79,6 +57,7 @@ String getTimeStampString() {
    uint8_t seconds = ti->tm_sec;
    String secondStr = seconds < 10 ? "0" + String(seconds) : String(seconds);
 
-   return yearStr + "-" + monthStr + "-" + dayStr + " " +
+   return monthStr + "-" + dayStr + "-" + yearStr + " " +
           hoursStr + ":" + minuteStr + ":" + secondStr;
+          // set to "MM-DD-YYYY HH:MM:SS" format
 }

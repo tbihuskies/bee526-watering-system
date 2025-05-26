@@ -1,9 +1,6 @@
 #ifndef LITTLEFS_FUNCS_H
 #define LITLELFS_FUNCS_H
 
-#include <FS.h>
-#include <LittleFS.h>
-
 
 namespace LittleFSFuncs {
 

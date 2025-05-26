@@ -3,7 +3,8 @@
 
 #include <WiFi.h>
 #include "ESP32WifiShowNetworks.h"
-
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 // simple function to decipher the encryption type of a network
 String translateEncryptionType(wifi_auth_mode_t encryptionType) { 
@@ -58,7 +59,7 @@ void connectToNetwork(const char* ssid, const char* password) {
     delay(1000);
     Serial.print(".");
   }
-  Serial.printf("Connected to network: %s/n", ssid);
+  Serial.printf("Connected to network: %s\n", ssid);
 }
  
 // void setup() {
