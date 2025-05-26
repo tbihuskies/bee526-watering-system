@@ -4,7 +4,6 @@
 #include "SD.h"
 #include "SPI.h"
 #include "LittleFS.h"
-#include "ArduinoJson.h"
 #include <Preferences.h>
 #include <WiFi.h>
 #include "ESP32WifiShowNetworks.h"
@@ -31,8 +30,8 @@ void setCheckInterval(void);
 
 
 // SSID and password of Wifi connection:
-const char* ssid = "GANTENG3";
-const char* password = "banana09";
+const char* ssid = "XXXXX";
+const char* password = "password";
 
 // put enums & constants here:
 const int NUM_PLANTS = 3;
@@ -150,7 +149,7 @@ void loop() {
     for (int i=0; i<NUM_PLANTS-1; i++) {
     // read output & convert to moisture percentage based on calibration
       moistReadings[i] = analogRead(outputPins[i]);
-      
+
     }  
   }
 
