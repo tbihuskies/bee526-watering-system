@@ -2,10 +2,8 @@
 // https://techtutorialsx.com/2017/06/29/esp32-arduino-getting-started-with-wifi/
 
 #include <WiFi.h>
+#include "ESP32WifiShowNetworks.h"
 
-// SSID and password of Wifi connection:
-const char* ssid = "TYPE_YOUR_SSID_HERE";
-const char* password = "TYPE_YOUR_PASSWORD_HERE";
 
 // simple function to decipher the encryption type of a network
 String translateEncryptionType(wifi_auth_mode_t encryptionType) { 
@@ -22,11 +20,13 @@ String translateEncryptionType(wifi_auth_mode_t encryptionType) {
       return "WPA_WPA2_PSK";
     case (WIFI_AUTH_WPA2_ENTERPRISE):
       return "WPA2_ENTERPRISE";
+    default:
+      return "None";
   }
 }
 
 // Function to scan and print all networks that can be detected by the ESP32 
-void scanNetworks() {
+void scanNetworks(void) {
   int numberOfNetworks = WiFi.scanNetworks();
  
   Serial.print("Number of networks found: ");
@@ -50,7 +50,7 @@ void scanNetworks() {
 }
 
 // function to connect to a Wifi network -> note that there is no time-out function on this
-void connectToNetwork() {
+void connectToNetwork(const char* ssid, const char* password) {
   WiFi.begin(ssid, password);
   Serial.println("Establishing connection to WiFi.");
  
@@ -58,18 +58,18 @@ void connectToNetwork() {
     delay(1000);
     Serial.print(".");
   }
-  Serial.println("Connected to network");
+  Serial.printf("Connected to network: %s/n", ssid);
 }
  
-void setup() {
-  Serial.begin(115200);                 // initiate local communication to PC
+// void setup() {
+//   Serial.begin(115200);                 // initiate local communication to PC
  
-  scanNetworks();                       // scan for all WiFi networks
-  connectToNetwork();                   // try to connect to SSID defined by user
+//   scanNetworks();                       // scan for all WiFi networks
+//   connectToNetwork();                   // try to connect to SSID defined by user
  
-  Serial.println(WiFi.macAddress());    // print MAC address of WiFi interface
-  Serial.println(WiFi.localIP());       // print IP address of WiFi interface
-}
+//   Serial.println(WiFi.macAddress());    // print MAC address of WiFi interface
+//   Serial.println(WiFi.localIP());       // print IP address of WiFi interface
+// }
  
-void loop() {}
+// void loop() {}
 // not used in this example

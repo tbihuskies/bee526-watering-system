@@ -1,9 +1,13 @@
 #include <Arduino.h>
 #include <BluetoothSerial.h>
 #include "FS.h"
+#include "SD.h"
+#include "SPI.h"
 #include "LittleFS.h"
 #include "ArduinoJson.h"
 #include <Preferences.h>
+#include <WiFi.h>
+#include "ESP32WifiShowNetworks.h"
 // #include <iostream>
 
 #include "sensor_read.h"
@@ -15,15 +19,20 @@ using namespace WaterSoil;
 
 #define FORMAT_LITTLEFS_IF_FAILED true
 
-// // SD Card pin definitions
-// #define SD_MISO 19
-// #define SD_MOSI 23
-// #define SD_CLK 18
-// #define SD_CS 5
 
+// SD Card pin definitions
+#define SD_MISO 19
+#define SD_MOSI 23
+#define SD_CLK 18
+#define SD_CS 5
 
 // put function declarations here:
 void setCheckInterval(void);
+
+
+// SSID and password of Wifi connection:
+const char* ssid = "GANTENG3";
+const char* password = "banana09";
 
 // put enums & constants here:
 const int NUM_PLANTS = 3;
@@ -46,6 +55,7 @@ CheckTimeInterval timeInterval;
 int moistHighs[] = {500, 500, 500}; // array for storing high moisture value thresholds - recall a lower number represents more moist soil 
 int moistLows[] = {2000, 2000, 2000}; // array for storing low moisture values - recall a higher number represents drier soil
 
+
 void setup() {
 
   Serial.begin(115200); // initialize
@@ -53,22 +63,32 @@ void setup() {
   // set up file system
   if(!LittleFS.begin(FORMAT_LITTLEFS_IF_FAILED)) {Serial.println("LittleFS mount failed.");} else {Serial.println("LittleFS mount succeeded");}
 
-  // set up SD card
-  // SPI.begin(SD_CLK,SD_MISO,SD_MOSI,SD_CS);
-  // if (!SD.begin(SD_CS)) {Serial.println("SD CARD mount fail. :( ");}
-  // else {Serial.println("SD CARD mount success! :) ");}
-
   // set up bluetooth 
-  char device_name[] = "We've got Bluetooth yo!";
+  char device_name[] = "SoilSensors";
   SerialBT.begin(device_name);
-  char device_name_dblqts[75];
+  char device_name_dblqts[60];
   sprintf(device_name_dblqts, "\"%s\"", device_name); // device name in double quotes
   Serial.print(device_name_dblqts);
   Serial.println(" has been started. It can now be paired via Bluetooth."); // message confirms Bluetooth connection
 
+  // sd card setup
+  if(!SD.begin()){
+    Serial.println("Card Mount Failed");
+    return;
+  }
+
   // sensor setup
   // analogSetAttenuation(ADC_11db);
   // delay(2000);
+
+  // set up Wifi connection
+    Serial.begin(115200);                 // initiate local communication to PC
+    
+    scanNetworks();                       // scan for all WiFi networks
+    connectToNetwork(ssid, password);     // try to connect to SSID defined by user
+    
+    Serial.println(WiFi.macAddress());    // print MAC address of WiFi interface
+    Serial.println(WiFi.localIP());       // print IP address of WiFi interface
 
   // create JSON file w/ thresholds if it doesn't exist yet
   String filename = "/folder1/plantdata.txt";
@@ -90,29 +110,29 @@ void setup() {
   // prefs.end();
   
   // default values for plants
-  prefs.begin("plant1", false);
-  prefs.putString("name", "Plant 1");
-  prefs.putString("type", "Type 1");
-  prefs.putInt("moisture-hi", 50); // highest moisture percentage; will correspond to lower output
-  prefs.putInt("moisture-lo", 20); // lowest moisture percentages; will correspond to higher output
-  prefs.end();
+  // prefs.begin("plant1", false);
+  // prefs.putString("name", "Plant 1");
+  // prefs.putString("type", "Type 1");
+  // prefs.putInt("moisture-hi", 50); // highest moisture percentage; will correspond to lower output
+  // prefs.putInt("moisture-lo", 20); // lowest moisture percentages; will correspond to higher output
+  // prefs.end();
 
-  prefs.begin("plant2", false);
-  prefs.putString("name", "Plant 2");
-  prefs.putString("type", "Type 2");
-  prefs.putInt("moisture-hi", 50); // highest moisture percentage; will correspond to lower output
-  prefs.putInt("moisture-lo", 20); // lowest moisture percentages; will correspond to higher output
-  prefs.end();
+  // prefs.begin("plant2", false);
+  // prefs.putString("name", "Plant 2");
+  // prefs.putString("type", "Type 2");
+  // prefs.putInt("moisture-hi", 50); 
+  // prefs.putInt("moisture-lo", 20); 
+  // prefs.end();
 
-  prefs.begin("plant3", false);
-  prefs.putString("name", "Plant 3");
-  prefs.putString("type", "Type 3");
-  prefs.putInt("moisture-hi", 50); // highest moisture percentage; will correspond to lower output
-  prefs.putInt("moisture-lo", 20); // lowest moisture percentages; will correspond to higher output
-  prefs.end();
+  // prefs.begin("plant3", false);
+  // prefs.putString("name", "Plant 3");
+  // prefs.putString("type", "Type 3");
+  // prefs.putInt("moisture-hi", 50); 
+  // prefs.putInt("moisture-lo", 20); 
+  // prefs.end();
 
   // get moisture thresholds from file
-  for (int i=0; i<NUM_PLANTS-1; i++) {
+  for (int i=0; i<=NUM_PLANTS-1; i++) {
       
   }
   
@@ -122,6 +142,18 @@ void setup() {
 void loop() {
 
   // put your main code here, to run repeatedly:
+
+  // if elapsed time has already passed (i.e. time >= interval + time last watered) 
+  if (true) {// replace 
+    int moistReadings[] = {0, 0, 0}; // initialize for later storage
+    const int outputPins[] = {35, 32, 33};
+    for (int i=0; i<NUM_PLANTS-1; i++) {
+    // read output & convert to moisture percentage based on calibration
+      moistReadings[i] = analogRead(outputPins[i]);
+      
+    }  
+  }
+
 
   // sensorReading = analogRead(36);
   // Serial.print("Moisture reading is: ");
