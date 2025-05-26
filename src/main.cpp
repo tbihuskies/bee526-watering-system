@@ -31,8 +31,8 @@ void setCheckInterval(void);
 
 
 // SSID and password of Wifi connection:
-const char* ssid = "Shuttle";
-const char* password = "!0243545292";
+const char* ssid = "xxxxx";
+const char* password = "password";
 const int moistInputPins[] = {35, 32, 33}; // moisture analog pins
 const int relayOutputPins[] = {};
 // const int pumpOutPin;
