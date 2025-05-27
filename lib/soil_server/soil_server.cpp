@@ -3,15 +3,13 @@
 #include "soil_server.h"
 #include <WebServer.h>
 #include <Preferences.h>
-#include <NTPClient.h>
 #include <ESP32WifiNtp.h>
 #include "func_pointers.h" // for function pointer onIntervalChange
 
 WebServer server(80);
 Preferences _prefs; // used to update the prefs
-NTPClient timeClient; // NTP client to get the current time
 
-void serverSetup(Preferences &pf, NTPClient &ntpc) {
+void serverSetup(Preferences &pf) {
     server.begin(); // start the server
     Serial.println("HTTP server started on port 80");
     // add server-on's to handle HTTP requests
@@ -28,7 +26,6 @@ void serverSetup(Preferences &pf, NTPClient &ntpc) {
     });
     
     _prefs = pf;
-    timeClient = ntpc; // set the NTP client to the one passed in
     Serial.println("Server setup complete.");
 }
 
@@ -108,9 +105,10 @@ void handleUpdatePlant(){
 // handles when the time moisture last checked is manually updated
 void handleUpdateRefTime(){
     // DateTime string will be in format MM-DD-YYYY HH:MM:SS
-    timeClient.getEpochTime(); // update the time client to get the current epoch time
-    _prefs.begin("water-times", false); // opens namespace "water-times"
-    _prefs.putString("date", getTimeStampString(timeClient)); // updates the date to the current time
+    if (onManuallyUpdateRefTime) {
+        onManuallyUpdateRefTime(); // call function pointer in func_pointers.h
+    }
+    // _prefs.putString("date", getTimeStampString(timeClient)); // updates the date to the current time
     server.send(200, "text/plain", "Reference time updated successfully.");
 } 
 
@@ -136,8 +134,11 @@ void handleManuallyWater(){
         return;
     }
     Serial.println("Manual watering complete.");
+        if (onManuallyUpdateRefTime) { // after manually watering, update reference time in both main.cpp and in Preferences
+            onManuallyUpdateRefTime(); // call function pointer in func_pointers.h
+        }
     server.send(200, "text/plain", "Plant manual watering complete.");
-} 
+}
 
 void handleSetCheckInterval() {
     if (server.hasArg("interval")) {
@@ -176,7 +177,7 @@ void handleSetCheckInterval() {
         }
         int intervalSet = _prefs.getInt("check-interval", 3600); // get the updated check interval, returns 1 hour if not set
         if (onIntervalChange) {
-            onIntervalChange(intervalSet); // call the function pointer if set
+            onIntervalChange(intervalSet); // call the function pointer in func_pointers.h
         }
     }
 }

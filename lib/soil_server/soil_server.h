@@ -4,7 +4,7 @@
 #include <Preferences.h>
 #include <NTPClient.h>
 
-void serverSetup(Preferences &pf, NTPClient &ntpc);
+void serverSetup(Preferences &pf);
 void handleHttpRequests();
 
 void printTestString();

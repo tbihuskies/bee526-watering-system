@@ -3,9 +3,10 @@
 
 #include <NTPClient.h>
 
-    NTPClient ntpSetup();
-    long getEpochTime(NTPClient &timeClient);
-    String getTimeStampString(NTPClient &timeClient);
- 
+extern NTPClient timeClient; // shared NTP client
+
+    void ntpSetup();
+    long getEpochTime();
+    String getTimeStampString();
 
 #endif

@@ -14,28 +14,25 @@
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
 
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "pool.ntp.org", UTC_OFFSET_IN_SECONDS);
 
-NTPClient ntpSetup(){
-  // Define NTP Client to get time
-  WiFiUDP ntpUDP;
-  NTPClient timeClient(ntpUDP, "pool.ntp.org", UTC_OFFSET_IN_SECONDS);
-
+void ntpSetup(){
+  // Wait for WiFi connection
   while ( WiFi.status() != WL_CONNECTED ) {
-    delay ( 500 );
+    delay (500);
     Serial.print ( "." );
   }
   timeClient.begin();
-
   timeClient.update();
-  return timeClient;
 }
 
-long getEpochTime(NTPClient &timeClient) {
+long getEpochTime() {
   // returns the epoch time in seconds
   return timeClient.getEpochTime();
 }
 
-String getTimeStampString(NTPClient &timeClient) {
+String getTimeStampString() {
    time_t rawtime = timeClient.getEpochTime();
    struct tm * ti;
    ti = localtime (&rawtime);
