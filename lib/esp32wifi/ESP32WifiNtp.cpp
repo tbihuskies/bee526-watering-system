@@ -13,28 +13,29 @@
 
 char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
-// Define NTP Client to get time
-WiFiUDP ntpUDP;
-NTPClient timeClient(ntpUDP, "pool.ntp.org", UTC_OFFSET_IN_SECONDS);
 
-void ntpSetup(){
-  
+
+NTPClient ntpSetup(){
+  // Define NTP Client to get time
+  WiFiUDP ntpUDP;
+  NTPClient timeClient(ntpUDP, "pool.ntp.org", UTC_OFFSET_IN_SECONDS);
+
   while ( WiFi.status() != WL_CONNECTED ) {
     delay ( 500 );
     Serial.print ( "." );
   }
-
   timeClient.begin();
-  
-  // The function timeClient.update() syncs the local time to the NTP server. In the video I call this in the main loop. However, NTP servers dont like it if 
-  // they get pinged all the time, so I recommend to only re-sync to the NTP server occasionally. In this example code we only call this function once in the
-  // setup() and you will see that in the loop the local time is automatically updated. Of course the ESP/Arduino does not have an infinitely accurate clock, 
-  // so if the exact time is very important you will need to re-sync once in a while.
+
   timeClient.update();
+  return timeClient;
 }
 
+long getEpochTime(NTPClient &timeClient) {
+  // returns the epoch time in seconds
+  return timeClient.getEpochTime();
+}
 
-String getTimeStampString() {
+String getTimeStampString(NTPClient &timeClient) {
    time_t rawtime = timeClient.getEpochTime();
    struct tm * ti;
    ti = localtime (&rawtime);
@@ -61,3 +62,4 @@ String getTimeStampString() {
           hoursStr + ":" + minuteStr + ":" + secondStr;
           // set to "MM-DD-YYYY HH:MM:SS" format
 }
+

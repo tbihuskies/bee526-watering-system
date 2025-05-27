@@ -1,5 +1,5 @@
 #ifndef LITTLEFS_FUNCS_H
-#define LITLELFS_FUNCS_H
+#define LITTLEFS_FUNCS_H
 
 
 namespace LittleFSFuncs {

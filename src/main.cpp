@@ -5,56 +5,56 @@
 #include "LittleFS.h"
 #include <Preferences.h>
 #include <WiFi.h>
+#include <NTPClient.h>
 #include <WebServer.h>
 // #include <iostream>
 
 #include "ESP32WifiShowNetworks.h"
 #include "ESP32WifiNtp.h"
-#include "littlefs_funcs.h"
 #include "soil_server.h"
-
-using namespace LittleFSFuncs;
+#include "func_pointers.h"
 
 #define FORMAT_LITTLEFS_IF_FAILED true
 
 
-// SD Card pin definitions
-#define SD_MISO 19
-#define SD_MOSI 23
-#define SD_CLK 18
-#define SD_CS 5
-
-
+// SD Card pin definitions if custom parameters needed
+// #define SD_MISO 19
+// #define SD_MOSI 23
+// #define SD_CLK 18
+// #define SD_CS 5
 
 // put function declarations here:
-void setCheckInterval(void);
-
 
 // SSID and password of Wifi connection:
 const char* ssid = "xxxxx";
 const char* password = "password";
-const int moistInputPins[] = {35, 32, 33}; // moisture analog pins
-const int relayOutputPins[] = {};
+const int moistInputPins[] = {39, 34, 35}; // moisture analog pins
+const int relayOutputPins[] = {25, 26, 27};
 // const int pumpOutPin;
 
 // put enums & constants here:
 const int NUM_PLANTS = 3;
 
-enum CheckTimeInterval {
+enum CheckTimeInterval { // time intervals with ints in seconds
   T_15MINS = 900, T_30MINS = 1800, T_1HR = 3600, T_2HRS = 7200, T_6HRS = 21600, T_12HRS = 43200, T_24HRS = 86400
 };
 enum MoistureCategory {DRY=1, MEDIUM_DRY=2, MEDIUM=3, WET=4};
 
 // put non-constants here
 Preferences prefs;
+NTPClient timeClient = ntpSetup(); // NTP client to get time
+long refTimeInMillis = 0; // comparison point time, used with millis() to determine when to check moisture 
+CheckTimeInterval timeInterval = T_1HR; // default time interval for checking moisture
 
+// function pointers here
 
-// BluetoothSerial SerialBT;
+// called in soil_server.cpp when interval is updated from app
+void updateInterval(int intervalSet) {
+  timeInterval = static_cast<CheckTimeInterval>(intervalSet);
+  Serial.println("Interval updated.");
+}
+void (*onIntervalChange)(int intervalSet) = updateInterval;
 
-int sensorReading1;
-int sensorReading2;
-int sensorReading3;
-CheckTimeInterval timeInterval;
 
 
 void setup() {
@@ -81,10 +81,8 @@ void setup() {
     
     Serial.println(WiFi.macAddress());    // print MAC address of WiFi interface
     Serial.println(WiFi.localIP());       // print IP address of WiFi interface
-
-    // initialize NTP
-    ntpSetup();
-    Serial.println(getTimeStampString());
+    Serial.println("NTP Client has been set up. Current time is:");
+    Serial.println(getTimeStampString(timeClient));
 
 
   // create JSON file w/ thresholds if it doesn't exist yet
@@ -94,8 +92,9 @@ void setup() {
   // }
 
   // set up preferences
-  prefs.begin("watered_last", false); // sets up time last watered.
-  prefs.putString("date", "MM-DD-YYYY HH:MM:SS"); // default value
+  prefs.begin("water-times", false); // sets up time last watered.
+  prefs.putString("date", getTimeStampString(timeClient)); // default value
+  prefs.putInt("check-interval", timeInterval); // default time interval
   prefs.end();
   
   // set preferences w/ default values for plants
@@ -118,7 +117,7 @@ void setup() {
   prefs.end();
 
   // initiate the mini-server passing Preferences
-  serverSetup(prefs);
+  serverSetup(prefs, timeClient);
 
 
 }
@@ -127,8 +126,9 @@ void loop() {
 
   // put your main code here, to run repeatedly:
 
-  // if elapsed time has already passed (i.e. time >= interval + time last watered) 
-  if (true) {// replace 
+  // if elapsed time has already passed (i.e. time >= interval + time last watered)
+
+  if (millis() - refTimeInMillis >= timeInterval * 1000) { // if time interval has passed since last check
     int moistReadings[] = {0, 0, 0}; // initialize for later storage
     for (int i=0; i<NUM_PLANTS-1; i++) {
     // read output & convert to moisture percentage based on calibration
@@ -143,8 +143,3 @@ void loop() {
 
 }
 
-
-// put function definitions here:
-void setCheckInterval(void){
-
-}
