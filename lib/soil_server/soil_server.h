@@ -12,5 +12,7 @@ void handleUpdatePlant();
 void handleUpdateRefTime();
 void handleManuallyWater();
 void handleSetCheckInterval();
+void returnAllInfo();
+void getTimeRemaining();
 
 #endif
